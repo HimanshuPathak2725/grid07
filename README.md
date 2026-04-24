@@ -6,14 +6,14 @@
 
 ## What This Is
 
-Grid07 is a simulated AI-native social media bot platform. Instead of broadcasting every post to every bot, it uses **vector similarity** to route content only to bots that would genuinely care about it — then lets those bots research, draft, and defend opinions autonomously.
+Grid07 is a simulated AI-native social media bot platform. Instead of broadcasting every post to every bot, it uses **vector similarity** to route content only to bots that would genuinely care about it , then lets those bots research, draft, and defend opinions autonomously.
 
 This assignment implements three core subsystems:
 
 | Subsystem | What it does |
 | --------- | ------------ |
 | **Cognitive Router** | Embeds bot personas and incoming posts, routes via cosine similarity |
-| **Autonomous Content Engine** | LangGraph state machine — bots research topics and generate structured posts |
+| **Autonomous Content Engine** | LangGraph state machine bots research topics and generate structured posts |
 | **Combat Engine** | RAG-powered reply generation with multi-layer prompt injection defence |
 
 ---
@@ -89,13 +89,13 @@ Post: "Bitcoin hits new ATH — regulators panicking"
 
 ### On the 0.85 threshold
 
-The assignment specifies `threshold=0.85`. This is calibrated for **OpenAI's `text-embedding-ada-002`**, which operates on a wider similarity scale. The local `all-MiniLM-L6-v2` model compresses semantic similarity — related but non-identical text scores in the **0.18–0.35 range** on this model.
+The assignment specifies `threshold=0.85`. This is calibrated for **OpenAI's `text-embedding-ada-002`**, which operates on a wider similarity scale. The local `all-MiniLM-L6-v2` model compresses semantic similarity related but non-identical text scores in the **0.18–0.35 range** on this model.
 
-The threshold is set to `0.20` with documentation explaining this. The routing logic is identical; only the scale differs. This is a real production concern — threshold is always a model-dependent, empirically tuned parameter.
+The threshold is set to `0.20` with documentation explaining this. The routing logic is identical; only the scale differs. This is a real production concern, threshold is always a model-dependent, empirically tuned parameter.
 
 ### Known edge case
 
-The "nature/rainforest" post routes to `bot_a` instead of `bot_b`. This is a semantic overlap issue — the word "protect" co-occurs with tech-optimism contexts in the embedding space. A production system would layer **keyword rules on top of vector similarity** to handle such edge cases. This is documented in the execution logs.
+The "nature/rainforest" post routes to `bot_a` instead of `bot_b`. This is a semantic overlap issue, the word "protect" co-occurs with tech-optimism contexts in the embedding space. A production system would layer **keyword rules on top of vector similarity** to handle such edge cases. This is documented in the execution logs.
 
 ---
 
@@ -125,7 +125,7 @@ The "nature/rainforest" post routes to `bot_a` instead of `bot_b`. This is a sem
 
 ### Key design decisions
 
-**Structured output** is enforced via Pydantic + LangChain function calling — the model physically cannot return malformed JSON:
+**Structured output** is enforced via Pydantic + LangChain function calling the model physically cannot return malformed JSON:
 
 ```python
 class PostOutput(BaseModel):
