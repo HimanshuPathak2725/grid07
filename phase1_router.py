@@ -5,9 +5,16 @@ Embeds bot personas into ChromaDB and routes incoming posts
 to only the bots that "care" about the topic via cosine similarity.
 """
 
+import os
+
 import chromadb
 from sentence_transformers import SentenceTransformer
 from typing import List, Dict
+
+from dotenv import load_dotenv
+load_dotenv()
+# Suppress unauthenticated HF Hub warnings
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 # ── Embedding model (runs locally, no API key needed) ──────────────────────────
 EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
@@ -114,7 +121,7 @@ if __name__ == "__main__":
 
     for post in test_posts:
         print(f"\n📨 Post: \"{post}\"")
-        matches = route_post_to_bots(post, store, threshold=0.30)
+        matches = route_post_to_bots(post, store, threshold=0.20)
         if matches:
             print(f"  → Routed to: {[m['bot_id'] for m in matches]}")
         else:
